@@ -20,8 +20,7 @@ public class SortLettersByCase {
 	private static void swap(char[] chars, int low, int high) {
 		char temp = chars[low];
 		chars[low] = chars[high];
-		chars[high] = temp;
-		
+		chars[high] = temp;	
 	}
 
 	public static void main(String[] args) {
