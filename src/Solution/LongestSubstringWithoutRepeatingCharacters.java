@@ -1,27 +1,32 @@
+// tricky
+
 package Solution;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LongestSubstringWithoutRepeatingCharacters {
 	public static int lengthOfLongestSubstring(String s) {
-		if (s == null || s.length() == 0) {
-			return 0;
+		if (s.length() < 2) {
+			return s.length();
 		}
-		int maxLen = 0;
-		int start = 0;
-		Map<Character, Integer> hm = new HashMap<Character, Integer>();
-		for (int i = 0; i < s.length(); i++) {
-			if (!hm.containsKey(s.charAt(i))) {
-				hm.put(s.charAt(i), i);
-				maxLen = Math.max(maxLen, i - start + 1);
-			} else {
-				start = hm.get(s.charAt(i)) + 1;
-				maxLen = Math.max(maxLen, i - start + 1);
-				hm.put(s.charAt(i), i);
+		int len = s.length();
+		char[] array = s.toCharArray();
+		int start = 0, end = 0, maxLen = 1;
+		Set<Character> hs = new HashSet<Character>();
+		while (end < len) {
+			if (!hs.add(array[end])) {
+				if ((end - start) > maxLen) {
+					maxLen = end - start;
+				}
+				while (!hs.add(array[end])) {
+					hs.remove(array[start]);
+					start++;
+				}
 			}
+			end++;
 		}
-		return maxLen;
+		return maxLen > (end - start) ? maxLen : (end - start);
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
