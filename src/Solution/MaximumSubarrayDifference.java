@@ -7,8 +7,9 @@ import java.util.Arrays;
 
 public class MaximumSubarrayDifference {
 	public static int maxDiffSubArrays(ArrayList<Integer> nums) {
-		if (nums == null)
+		if (nums == null) {
 			return 0;
+		}
 		int currMaxSum = 0, currMinSum = 0;
 		int[] leftGlobalMax = new int[nums.size()];
 		int[] leftGlobalMin = new int[nums.size()];
