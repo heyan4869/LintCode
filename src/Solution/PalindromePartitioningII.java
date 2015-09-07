@@ -2,34 +2,37 @@
 
 package Solution;
 
+import java.util.Arrays;
+
 public class PalindromePartitioningII {
 	public static int minCut(String s) {
-		int len = s.length();
-		// store the num of cut
-		int[] d = new int[len + 1];
-		// store whether palindrome between i and j
-		boolean[][] p = new boolean[len][len];
-		// the worst case is cutting by each char
-		for (int i = 0; i <= len; i++)
-			d[i] = len - i;
-		for (int i = 0; i < len; i++)
-			for (int j = 0; j < len; j++)
-				p[i][j] = false;
-		for (int i = len - 1; i >= 0; i--) {
-			for (int j = i; j < len; j++) {
-				if (s.charAt(i) == s.charAt(j)
-						&& (j - i < 2 || p[i + 1][j - 1])) {
-					p[i][j] = true;
-					d[i] = Math.min(d[i], d[j + 1] + 1);
+		int n = s.length();
+		if (n <= 1)
+			return 0;
+		boolean[][] isPal = new boolean[n][n];
+		for (int i = n - 1; i >= 0; i--) {
+			for (int j = i; j < n; j++) {
+				if ((i + 1 > j - 1 || isPal[i + 1][j - 1])
+						&& s.charAt(i) == s.charAt(j))
+					isPal[i][j] = true;
+			}
+		}
+		int[] dp = new int[n + 1];
+		Arrays.fill(dp, Integer.MAX_VALUE);
+		dp[0] = -1;
+		for (int i = 1; i <= n; i++) {
+			for (int j = i - 1; j >= 0; j--) {
+				if (isPal[j][i - 1]) {
+					dp[i] = Math.min(dp[i], dp[j] + 1);
 				}
 			}
 		}
-		return d[0] - 1;
+		return dp[n];
 	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		System.out.println(minCut("ABA"));
 	}
 
 }
