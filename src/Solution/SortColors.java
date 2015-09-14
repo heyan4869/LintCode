@@ -8,10 +8,12 @@ public class SortColors {
 		int head = 0;
 		int tail = nums.length - 1;
 		for (int i = 0; i < nums.length; i++) {
-			while (nums[i] == 2 && i < tail)
+			while (nums[i] == 2 && i < tail) {
 				swap(nums, i, tail--);
-			while (nums[i] == 0 && i > head)
+			}
+			while (nums[i] == 0 && i > head) {
 				swap(nums, i, head++);
+			}
 		}
 	}
 
